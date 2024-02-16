@@ -61,7 +61,9 @@ public class Classe {
     }
 
     public List<CoursEtHeure> listeCoursEtHeures(){
+        int a=56;
 
+        System.out.println("bonjour");
     }
 
     public boolean salleCapaciteOK(Salle salle){
