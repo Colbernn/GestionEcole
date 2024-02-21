@@ -44,8 +44,10 @@ public class Enseignant {
         return this.chargeSem;
     }
 
-    public boolean isOk(){
-        if()
+    public LocalDate getDateEngag() {
+        return dateEngag;
     }
+
+
 
 }

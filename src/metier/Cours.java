@@ -5,6 +5,7 @@ public class Cours {
     protected String code;
     protected String intitule;
 
+
     public Cours(int id, String code, String intitule){
         this.idCours=id;
         this.code=code;
