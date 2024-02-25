@@ -255,6 +255,7 @@ public class Classe {
     /**
      * suppression d'un cours dans la liste infos
      * @param cours le cours à supprimer
+     * @return si la suppression s'est faite ou pas
      */
     public boolean suppCours(Cours cours){
         boolean suppresion=false;
