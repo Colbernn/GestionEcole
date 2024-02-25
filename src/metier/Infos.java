@@ -112,7 +112,7 @@ public class Infos {
     }
 
     public boolean Equals(Cours cours){
-        if(this.cours==cours){
+        if(this.cours.idCours==cours.idCours){
             return true;
         }else{
             return false;
