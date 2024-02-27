@@ -225,7 +225,7 @@ public class Classe {
      */
     public void modifCours(Cours cours, Enseignant enseignant){
         for(Infos inf : infos){
-            if(inf.Equals(cours)){
+            if(inf.cours.equals(cours)){
                 inf.enseignant=enseignant;
             }
         }
@@ -236,7 +236,7 @@ public class Classe {
      */
     public void modifCours(Cours cours, Salle salle){
         for(Infos inf : infos){
-            if(inf.Equals(cours)){
+            if(inf.cours.equals(cours)){
                 inf.salle=salle;
             }
         }
@@ -247,7 +247,7 @@ public class Classe {
      */
     public void modifCours(Cours cours, int heure){
         for(Infos inf : infos){
-            if(inf.Equals(cours)){
+            if(inf.cours.equals(cours)){
                 inf.nbreHeures=heure;
             }
         }
@@ -260,7 +260,7 @@ public class Classe {
     public boolean suppCours(Cours cours){
         boolean suppresion=false;
         for(Infos inf : infos){
-            if(inf.Equals(cours)){
+            if(inf.cours.equals(cours)){
                 suppresion=infos.remove(inf);
             }
         }

@@ -67,5 +67,13 @@ public class Cours {
         this.intitule = intitule;
     }
 
+    public boolean equals(Cours cours){
+        if(this.idCours==cours.idCours){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
 }

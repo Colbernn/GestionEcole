@@ -111,13 +111,7 @@ public class Infos {
         this.cours=cours;
     }
 
-    public boolean Equals(Cours cours){
-        if(this.cours.idCours==cours.idCours){
-            return true;
-        }else{
-            return false;
-        }
-    }
+
 
 
 }

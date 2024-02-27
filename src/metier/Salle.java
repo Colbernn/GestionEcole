@@ -20,7 +20,7 @@ public class Salle {
      * liste des classes de la salle
      */
 
-    protected List<Classe> classe = new ArrayList<Classe>();
+    protected List<Classe> classe = new ArrayList<>();
     /**
      * le constructeur parametré avec la salle
      */
