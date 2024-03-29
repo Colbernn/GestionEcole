@@ -128,7 +128,7 @@ public class GestSalle {
         try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1,idrech);
             int n = pstm.executeUpdate();
-            if(n!=0) System.out.println(n+ "ligne supprimée");
+            if(n!=0) System.out.println(n+ " ligne supprimée");
             else System.out.println("record introuvable");
 
         } catch (SQLException e) {
