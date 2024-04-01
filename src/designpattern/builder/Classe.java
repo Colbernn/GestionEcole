@@ -1,4 +1,4 @@
-package metier;
+package designpattern.builder;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -155,25 +155,10 @@ public class Classe {
     public void setSalle(Salle salle) {
         this.salle = salle;
     }
-
-    @Override
-    public String toString() {
-        return "Classe{" +
-                "idClasse=" + idClasse +
-                ", sigle='" + sigle + '\'' +
-                ", annee=" + annee +
-                ", specialite='" + specialite + '\'' +
-                ", nbreEleves=" + nbreEleves +
-                ", infos=" + infos +
-                ", salle=" + salle +
-                '}';
-    }
-
     /**
      * calcul du nombre d'heure de cours total de la classe
      * @return le total de nombre d'heure
      */
-
     public int nbreHeuresTot(){
         int tot=0;
         for(Infos inf : infos) {

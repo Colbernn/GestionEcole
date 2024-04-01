@@ -1,4 +1,4 @@
-package metier;
+package designpattern.observer;
 
 import java.util.List;
 
@@ -111,14 +111,7 @@ public class Infos {
         this.cours=cours;
     }
 
-    @Override
-    public String toString() {
-        return "Infos{" +
-                "idInfos=" + idInfos +
-                ", nbreHeures=" + nbreHeures +
-                ", enseignant=" + enseignant +
-                ", salle=" + salle +
-                ", cours=" + cours +
-                '}';
-    }
+
+
+
 }

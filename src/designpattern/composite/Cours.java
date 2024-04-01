@@ -1,4 +1,4 @@
-package metier;
+package designpattern.composite;
 
 public class Cours {
     /**
@@ -75,12 +75,5 @@ public class Cours {
         }
     }
 
-    @Override
-    public String toString() {
-        return "Cours{" +
-                "idCours=" + idCours +
-                ", code='" + code + '\'' +
-                ", intitule='" + intitule + '\'' +
-                '}';
-    }
+
 }

@@ -1,4 +1,4 @@
-package metier;
+package designpattern.observer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,15 +78,5 @@ public class Salle {
      */
     public void setCapacite(int capacite) {
         this.capacite = capacite;
-    }
-
-    @Override
-    public String toString() {
-        return "Salle{" +
-                "idSalle=" + idSalle +
-                ", sigle='" + sigle + '\'' +
-                ", capacite=" + capacite +
-                ", classe=" + classe +
-                '}';
     }
 }

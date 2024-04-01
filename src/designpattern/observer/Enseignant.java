@@ -1,4 +1,4 @@
-package metier;
+package designpattern.observer;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -163,19 +163,5 @@ public class Enseignant {
      */
     public void setDateEngag(LocalDate dateEngag) {
         this.dateEngag = dateEngag;
-    }
-
-    @Override
-    public String toString() {
-        return "Enseignant{" +
-                "idEns=" + idEns +
-                ", matricule='" + matricule + '\'' +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", tel='" + tel + '\'' +
-                ", chargeSem=" + chargeSem +
-                ", salaireMensu=" + salaireMensu +
-                ", dateEngag=" + dateEngag +
-                '}';
     }
 }
