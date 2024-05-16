@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Classe {
+public class Classe extends Subject{
     /**
      * identifiant unique-id de la classe
      */
@@ -139,7 +139,9 @@ public class Classe {
      * @param nbreEleves nombre d'eleves de la classe
      */
     public void setNbreEleves(int nbreEleves) {
+
         this.nbreEleves = nbreEleves;
+        notifyObservers();
     }
     /**
      * setter liste des cours de la classe
@@ -267,4 +269,8 @@ public class Classe {
         return suppresion;
     }
 
+    @Override
+    public String getNotification() {
+        return "nouveaux nombres d'élèbes de la classe "+sigle+"="+nbreEleves;
+    }
 }

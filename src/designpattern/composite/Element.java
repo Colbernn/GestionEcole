@@ -3,12 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package designpatterns.composite;
+package designpattern.composite;
 
-/**
- *
- * @author Michel
- */
+
 public abstract class Element {
     private int id;
     public Element(int id){
@@ -19,7 +16,7 @@ public abstract class Element {
         return id;
     }
     
-      public abstract float valStock();
+      public abstract int capaciteMax();
 
     @Override
     public int hashCode() {

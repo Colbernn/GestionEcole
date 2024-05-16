@@ -3,7 +3,7 @@ package designpattern.composite;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Salle {
+public class Salle extends Element {
     /**
      * identifiant unique-id de la salle
      */
@@ -24,8 +24,9 @@ public class Salle {
     /**
      * le constructeur parametré avec la salle
      */
-    public Salle (int id, String sigle, int cap){
-        this.idSalle=id;
+    public Salle (int id, int idSalle, String sigle, int cap){
+        super(id);
+        this.idSalle=idSalle;
         this.sigle=sigle;
         this.capacite=cap;
     }
@@ -78,5 +79,10 @@ public class Salle {
      */
     public void setCapacite(int capacite) {
         this.capacite = capacite;
+    }
+
+    @Override
+    public int capaciteMax() {
+        return capacite;
     }
 }

@@ -36,12 +36,13 @@ public class Classe {
     /**
      * le constructeur parametré sans la salle
      */
-    public Classe(int id, String sigle, int annee, String specialite, int nbreEleves){
-        this.idClasse=id;
-        this.sigle=sigle;
-        this.annee= annee;
-        this.specialite=specialite;
-        this.nbreEleves=nbreEleves;
+
+    public Classe(ClasseBuilder cb){
+        this.idClasse=cb.idClasse;
+        this.sigle=cb.sigle;
+        this.annee= cb.annee;
+        this.specialite=cb.specialite;
+        this.nbreEleves=cb.nbreEleves;
         this.salle=null;
     }
     /**
@@ -265,6 +266,38 @@ public class Classe {
             }
         }
         return suppresion;
+    }
+    public static class ClasseBuilder{
+
+        protected int idClasse;
+        protected String sigle;
+        protected int annee;
+        protected String specialite;
+        protected int nbreEleves;
+        public ClasseBuilder setIdClasse(int idClasse){
+            this.idClasse=idClasse;
+            return this;
+        }
+        public ClasseBuilder setSigle(String sigle){
+            this.sigle=sigle;
+            return this;
+        }
+        public ClasseBuilder setAnnee(int annee){
+            this.annee=annee;
+            return this;
+        }
+        public ClasseBuilder setSpecialite(String specialite){
+            this.specialite=specialite;
+            return this;
+        }
+        public ClasseBuilder setNbreEleves(int nbreEleves){
+            this.nbreEleves=nbreEleves;
+            return this;
+        }
+        public Classe build() throws Exception{
+            if(idClasse<=0 || sigle == null) throw new Exception("informations de construction incomplètes");
+            return new Classe(this);
+        }
     }
 
 }

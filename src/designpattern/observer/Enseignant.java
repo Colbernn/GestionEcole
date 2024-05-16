@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.Locale;
 
-public class Enseignant {
+public class Enseignant extends Observer{
     /**
      * identifiant unique-id de l'enseignant
      */
@@ -163,5 +163,10 @@ public class Enseignant {
      */
     public void setDateEngag(LocalDate dateEngag) {
         this.dateEngag = dateEngag;
+    }
+
+    @Override
+    public void update(String msg) {
+        System.out.println(prenom+" "+nom+"a reçu le message : " +msg);
     }
 }
