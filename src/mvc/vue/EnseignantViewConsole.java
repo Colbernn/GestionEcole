@@ -90,7 +90,7 @@ public class EnseignantViewConsole extends EnseignantAbstractView {
         Integer chargeSem = sc.nextInt();
         System.out.print("salaire mensuel :");
         BigDecimal salaire = sc.nextBigDecimal();
-        System.out.print("date d'engagement (format YYYY-MM-JJ) :");
+        System.out.print("date d'engagement (format JJ MM YYYY) :");
         LocalDate dateEngag=lecDate();
         Enseignant es = enseignantController.addEnseignant(new Enseignant(0,mat,nom,prenom,tel,chargeSem,salaire,dateEngag)) ;
         System.out.println(es);

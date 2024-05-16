@@ -58,7 +58,7 @@ public class ModelEnseignantDB extends DAOEnseignant{
             else return null;
 
         } catch (SQLException e) {
-            //System.err.println("erreur sql :"+e);
+            System.err.println("erreur sql :"+e);
 
             return null;
         }
