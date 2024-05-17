@@ -2,6 +2,8 @@ package mvc.controller;
 
 import metier.Classe;
 import metier.Cours;
+import metier.Enseignant;
+import metier.Salle;
 import mvc.model.DAOClasse;
 import mvc.vue.ClasseAbstractView;
 
@@ -35,23 +37,18 @@ public class ClasseController {
         return model.readClasse(idClasse);
     }
 
-    public List<Cours> commandes(Classe classe) {
+    public List<Enseignant> listeEnseignantsEtHeures() {
         return  model.commandes(classe);
     }
 
-    public List<Cours> factNonPayees(Classe classe) {
+    public List<Salle> listeSallesEtHeures(Classe classe) {
         return  model.factNonPayees(classe);
     }
 
-    public List<Cours> factRetard(Classe classe) {
+    public List<Cours> listeCoursEtHeures(Classe classe) {
         return  model.factRetard(classe);
     }
 
-    public List<Cours> factPayees(Classe classe) {
-        return  model.factPayees(classe);
-    }
 
-    public List<Produit> produits(Classe classe) {
-        return  model.produits(classe);
-    }
+
 }
