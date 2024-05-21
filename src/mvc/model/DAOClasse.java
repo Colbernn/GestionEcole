@@ -1,6 +1,9 @@
 package mvc.model;
 
 import metier.Classe;
+import metier.Cours;
+import metier.Enseignant;
+import metier.Salle;
 
 import java.util.List;
 
@@ -15,14 +18,8 @@ public abstract class DAOClasse extends mvc.observer.Subject {
 
     public abstract List<Classe> getClasses();
 
-    public abstract List<ComFact> factPayees(Classe classe);
-
-    public abstract List<ComFact> factRetard(Classe classe);
-
-    public abstract List<ComFact> factNonPayees(Classe classe);
+    public abstract List<Cours> cours(Classe classe);
 
 
-    public abstract List<ComFact> commandes(Classe classe);
 
-    public abstract List<Produit> produits(Classe classe);
 }

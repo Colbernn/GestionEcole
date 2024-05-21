@@ -1,7 +1,6 @@
 package mvc.model;
 
-import metier.Classe;
-import metier.Cours;
+import metier.*;
 import myconnections.DBConnection;
 
 import java.math.BigDecimal;
@@ -9,6 +8,8 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static utilitaires.Utilitaire.lecDate;
 
 public class ClasseModelHyb extends DAOClasse {
     protected Connection dbConnect;
@@ -94,77 +95,30 @@ public class ClasseModelHyb extends DAOClasse {
             return null;
         }
     }
-
-    @Override
-    public Classe readClasse(int idClasse) {
-        /*
-        CREATE OR REPLACE FORCE EDITIONABLE VIEW "ORA30"."APIClasseCOMFACTV2" ("IDClasse", "NOM", "PRENOM", "CP", "LOCALITE", "RUE", "NUM", "TEL", "IDCOMMANDE", "NUMFACT", "MONTANT", "ETAT", "DATECOMMANDE", "DATEFACTURATION", "DATEPAYEMENT") AS
-  SELECT
- apiClasse.idClasse as idClasse,
- apiClasse.nom as nom,
- apiClasse.prenom as prenom,
- apiClasse.cp as cp,
- apiClasse.localite as localite,
- apiClasse.rue as rue,
- apiClasse.num as num,
- apiClasse.tel as tel,
- apicomfact.idcommande as idcommande,
- apicomfact.numfact as numfact,
- apicomfact.montant as montant,
- apicomfact.etat as etat,
- apicomfact.datecommande as datecommande,
- apicomfact.datefacturation as datefacturation,
- apicomfact.datepayement as datepayement
-FROM
-apiClasse left join apicomfact on apiClasse.idClasse = apicomfact.idClasse
-order by apiClasse.idClasse
-;
-
- */
-
-        String query = "select * from APIClasseCOMFACTV2 where idClasse = ?";
+    public Classe readClasse(int idClasse){
+        String query = "select * from APICLASSE where idClasse = ?";
         try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1,idClasse);
             ResultSet rs = pstm.executeQuery();
             if(rs.next()){
-                String nom = rs.getString(2);
-                String prenom = rs.getString(3);
-                int cp = rs.getInt(4);
-                String loc = rs.getString(5);
-                String rue= rs.getString(6);
-                String num = rs.getString(7);
-                String tel = rs.getString(8);
-                Classe cl = new Classe(idClasse,nom,prenom,cp,loc,rue,num,tel);
-                List<ComFact> lc = new ArrayList<>();
-                int numcommande = rs.getInt(9);
-                if(numcommande!=0){
-                    do {
-                        numcommande = rs.getInt(9);
-                        Integer numfact = rs.getInt(10);
-                        BigDecimal montant = rs.getBigDecimal(11);
-                        char etat = rs.getString(12).charAt(0);
-                        LocalDate dateCom = rs.getDate(13).toLocalDate();
-                        Date date = rs.getDate(14);
-                        LocalDate datefact = date!=null?date.toLocalDate():null;
-                        date =rs.getDate(15);
-                        LocalDate datepay = date!=null?date.toLocalDate():null;
-                        ComFact cf = new ComFact(numcommande, numfact, dateCom, etat, montant, cl);
-                        cf.setDateFacturation(datefact);
-                        cf.setDatePayement(datepay);
-                        lc.add(cf);
-                    }while(rs.next());
-                }
-                cl.setComFacts(lc);
-                return cl;
+                String sigle = rs.getString(2);
+                int annee  = rs.getInt(3);
+                String specialite = rs.getString(4);
+                int nbrEleve  = rs.getInt(5);
+                Classe cl = new Classe(idClasse,sigle,annee,specialite,nbrEleve);
+                return  cl;
+
             }
             else {
                 return null;
             }
         } catch (SQLException e) {
-            // System.err.println("erreur sql :"+e);
+            System.err.println("erreur sql :"+e);
+
             return null;
         }
     }
+
 
     @Override
     public List<Classe> getClasses() {
@@ -189,40 +143,20 @@ order by apiClasse.idClasse
         }
     }
     @Override
-    public List<ComFact>  factPayees(Classe Classe) {
-        return Classe.factPayees();
-    }
-    @Override
-    public List<ComFact> factRetard(Classe Classe) {
-        return Classe.factRetard();
-    }
-
-    @Override
-    public List<ComFact> factNonPayees(Classe Classe) {
-        return Classe.factNonPayees();
-    }
-
-
-    @Override
-    public List<ComFact> commandes(Classe classe) {
-        return Classe.getComFacts();
-    }
-
-    @Override
     public List<Cours> cours(Classe classe) {
         List<Cours> lco = new ArrayList<>();
-        String query="select * from prodcli where idClasse = ? order by numprod";
+        String query="select * from APILIGNE where idClasse = ? order by idCours";
         try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1,classe.getIdClasse());
             ResultSet rs = pstm.executeQuery();
             boolean trouve= false;
             while(rs.next()){
                 trouve=true;
-                int idprod = rs.getInt(2);
-                String numprod = rs.getString(3);
-                String descr = rs.getString(4);
-                Produit pr = new Produit(idprod,numprod,descr,new BigDecimal(0),0,0);
-                lpr.add(pr);
+                int idCours = rs.getInt(2);
+                String code = rs.getString(3);
+                String intitule = rs.getString(4);
+                Cours co = new Cours(idCours,code,intitule);
+                lco.add(co);
             }
             if(!trouve) System.out.println("aucune commande trouvée");
         } catch (SQLException e) {

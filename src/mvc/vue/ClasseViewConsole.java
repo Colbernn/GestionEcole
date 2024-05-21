@@ -47,7 +47,7 @@ public class ClasseViewConsole extends ClasseAbstractView {
         affListe(l);
     }
 
-    private void special(Classe cl) {
+    /*private void special(Classe cl) {
 
         do {
             int ch = choixListe(Arrays.asList("commandes en cours", "factures non payees", "factures en retard", "factures payees", "produits achetés", "menu principal"));
@@ -67,7 +67,7 @@ public class ClasseViewConsole extends ClasseAbstractView {
             if(l==null || l.isEmpty()) affMsg("aucun élément trouvée");
             else affList(l);
         } while (true);
-    }
+    }*/
 
 
 
@@ -90,7 +90,7 @@ public class ClasseViewConsole extends ClasseAbstractView {
         if(cl==null) affMsg("recherche infructueuse");
         else {
             affMsg(cl.toString());
-            special(cl);
+            //special(cl);
         }
     }
 

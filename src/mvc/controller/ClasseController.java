@@ -37,18 +37,5 @@ public class ClasseController {
         return model.readClasse(idClasse);
     }
 
-    public List<Enseignant> listeEnseignantsEtHeures() {
-        return  model.commandes(classe);
-    }
-
-    public List<Salle> listeSallesEtHeures(Classe classe) {
-        return  model.factNonPayees(classe);
-    }
-
-    public List<Cours> listeCoursEtHeures(Classe classe) {
-        return  model.factRetard(classe);
-    }
-
-
 
 }
