@@ -9,7 +9,7 @@ import java.util.List;
 public abstract class ClasseAbstractView implements Observer {
     protected ClasseController classeController;
     protected SalleAbstractView sav;
-
+    protected EnseignantAbstractView env;
     protected CoursAbstractView cov;
     protected List<Classe> lc;
 

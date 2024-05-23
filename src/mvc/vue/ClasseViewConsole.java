@@ -56,7 +56,7 @@ public class ClasseViewConsole extends ClasseAbstractView {
         do {
             int ch = choixListe(Arrays.asList("Ajouter un cours", "modifier le nombre d'heures d'un cours", "modifier l'enseignant d'un cours", "modifier la salle d'un cours", "supprimer un cours", "menu principal"));
             if(ch==6) return;
-            List l =   switch (ch) {
+              switch (ch) {
                 case 1:
                     ajouterCours(cl);
                     break;
@@ -105,10 +105,10 @@ public class ClasseViewConsole extends ClasseAbstractView {
         System.out.println("modification d'une ligne");
         Cours co = cov.selectionner();
         System.out.print("Enseignant :");
-        ArrayList<Enseignant> len = new ArrayList<>();
-        len = getEnseignants();
-        Enseignant en =
-        boolean ok = classeController.modifCours1(cl,co,en);
+        List<Enseignant> len;
+        len = env.enseignantController.getAll();
+        int en = choixElt(len);
+        boolean ok = classeController.modifCours2(cl,co,len.get(en-1));
         if(ok) affMsg("mise à jour effectuée");
         else  affMsg("mise à jour infructueuse");
     }
@@ -117,10 +117,10 @@ public class ClasseViewConsole extends ClasseAbstractView {
         System.out.println("modification d'une ligne");
         Cours co = cov.selectionner();
         System.out.print("Salle :");
-        ArrayList<Salle> lsa = new ArrayList<>();
-        lsa = getSalles();
-        Salle sa =
-        boolean ok = classeController.modifCours1(cl,co,sa);
+        List<Salle> lsa;
+        lsa = sav.salleController.getAll();
+        int sa = choixElt(lsa);
+        boolean ok = classeController.modifCours3(cl,co,lsa.get(sa-1));
         if(ok) affMsg("mise à jour effectuée");
         else  affMsg("mise à jour infructueuse");
     }
