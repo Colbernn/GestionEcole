@@ -8,10 +8,21 @@ import java.util.List;
 
 public abstract class ClasseAbstractView implements Observer {
     protected ClasseController classeController;
+    protected SalleAbstractView sav;
+
+    protected CoursAbstractView cov;
     protected List<Classe> lc;
 
     public void  setController(ClasseController classeController){
         this.classeController=classeController;
+    }
+
+    public void setSalleView(SalleAbstractView sav){
+        this.sav=sav;
+    }
+
+    public void setCoursView(CoursAbstractView cov){
+        this.cov=cov;
     }
 
     public abstract void affMsg(String msg);

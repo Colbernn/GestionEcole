@@ -37,5 +37,24 @@ public class ClasseController {
         return model.readClasse(idClasse);
     }
 
+    public boolean addCours(Classe cl,Cours co, int nh){
+        return  model.addCours(cl,co, nh);
+    }
 
+    public boolean modifCours1(Classe cl,Cours co, int nh){
+        return model.updateCours1(cl,co, nh);
+    }
+
+    public boolean modifCours2(Classe cl,Cours co, Enseignant en){
+        return model.updateCours2(cl,co, en);
+    }
+
+    public boolean modifCours3(Classe cl,Cours co, Salle sa){
+        return model.updateCours3(cl,co, sa);
+    }
+
+    public boolean supCours(Classe cl,Cours co){
+
+        return  model.removeCours(cl,co);
+    }
 }

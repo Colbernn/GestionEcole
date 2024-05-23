@@ -23,8 +23,8 @@ public class ClasseModelHyb extends DAOClasse {
 
     @Override
     public Classe addClasse(Classe classe) {
-        String query1 = "insert into APIClasse(sigle,annee,specialite,nbreEleves) values(?,?,?,?)";
-        String query2 = "select idClasse from APIClasse where sigle= ?";
+        String query1 = "insert into APICLASSE(sigle,annee,specialite,nbreEleves,idSalle) values(?,?,?,?,?)";
+        String query2 = "select max(idClasse) from APICLASSE where idSalle = ?";
         try(PreparedStatement pstm1= dbConnect.prepareStatement(query1);
             PreparedStatement pstm2= dbConnect.prepareStatement(query2);
         ){
@@ -32,10 +32,11 @@ public class ClasseModelHyb extends DAOClasse {
             pstm1.setInt(2,classe.getAnnee());
             pstm1.setString(3,classe.getSpecialite());
             pstm1.setInt(4,classe.getNbreEleves());
+            pstm1.setInt(5,classe.getSalle().getIdSalle());
 
             int n = pstm1.executeUpdate();
             if(n==1){
-                pstm2.setString(1,classe.getSigle());
+                pstm2.setInt(1,classe.getSalle().getIdSalle());
                 ResultSet rs= pstm2.executeQuery();
                 if(rs.next()){
                     int idClasse= rs.getInt(1);
@@ -60,7 +61,7 @@ public class ClasseModelHyb extends DAOClasse {
 
     @Override
     public boolean removeClasse(Classe Classe) {
-        String query = "delete from APIClasse where idClasse = ?";
+        String query = "delete from APICLASSE where idClasse = ?";
         try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1,Classe.getIdClasse());
             int n = pstm.executeUpdate();
@@ -77,7 +78,7 @@ public class ClasseModelHyb extends DAOClasse {
 
     @Override
     public Classe updateClasse(Classe classe) {
-        String query = "update APIClasse set sigle =?,annee=?,specialite=?,nbreEleve=?";
+        String query = "update APICLASSE set sigle =?,annee=?,specialite=?,nbreEleve=?";
         try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setString(1,classe.getSigle());
             pstm.setInt(2,classe.getAnnee());
@@ -123,7 +124,7 @@ public class ClasseModelHyb extends DAOClasse {
     @Override
     public List<Classe> getClasses() {
         List<Classe> lc = new ArrayList<>();
-        String query="select * from APIClasse";
+        String query="select * from APICLASSE";
         try(Statement stm = dbConnect.createStatement()) {
             ResultSet rs = stm.executeQuery(query);
             while(rs.next()){
@@ -145,7 +146,7 @@ public class ClasseModelHyb extends DAOClasse {
     @Override
     public List<Cours> cours(Classe classe) {
         List<Cours> lco = new ArrayList<>();
-        String query="select * from APILIGNE where idClasse = ? order by idCours";
+        String query="select * from APIINFOS where idClasse = ? order by idCours";
         try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1,classe.getIdClasse());
             ResultSet rs = pstm.executeQuery();
@@ -164,6 +165,91 @@ public class ClasseModelHyb extends DAOClasse {
             return null;
         }
         return lco;
+    }
+
+    @Override
+    public boolean addCours(Classe cl, Cours co, int nh) {
+        String query = "insert into  APIINFOS(idCours,idCours, nbrHeures) values(?,?,?)";
+        try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
+            pstm.setInt(1,cl.getIdClasse());
+            pstm.setInt(2,co.getIdCours());
+            pstm.setInt(3,nh);
+            int n = pstm.executeUpdate();
+            if(n!=0) return true;
+            else return false;
+
+        } catch (SQLException e) {
+            System.err.println("erreur sql :" + e);
+
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateCours1(Classe cl, Cours co, int nh) {
+        String query = "update  APIINFOS set nbrHeures = ? where idClasse = ? AND idCours = ?";
+        try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
+            pstm.setInt(1,nh);
+            pstm.setInt(2,cl.getIdClasse());
+            pstm.setInt(3,co.getIdCours());
+            int n = pstm.executeUpdate();
+            if(n!=0) return true;
+            else return false;
+
+        } catch (SQLException e) {
+            System.err.println("erreur sql :" + e);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateCours2(Classe cl, Cours co, Enseignant en) {
+        String query = "update  APIINFOS set idEnseignant = ? where idClasse = ? AND idCours = ?";
+        try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
+            pstm.setInt(1,en.getIdEns());
+            pstm.setInt(2,cl.getIdClasse());
+            pstm.setInt(3,co.getIdCours());
+            int n = pstm.executeUpdate();
+            if(n!=0) return true;
+            else return false;
+
+        } catch (SQLException e) {
+            System.err.println("erreur sql :" + e);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateCours3(Classe cl, Cours co, Salle sa) {
+        String query = "update  APIINFOS set idSalle = ? where idClasse = ? AND idCours = ?";
+        try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
+            pstm.setInt(1,sa.getIdSalle());
+            pstm.setInt(2,cl.getIdClasse());
+            pstm.setInt(3,co.getIdCours());
+            int n = pstm.executeUpdate();
+            if(n!=0) return true;
+            else return false;
+
+        } catch (SQLException e) {
+            System.err.println("erreur sql :" + e);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean removeCours(Classe cl, Cours co) {
+        String query = "DELETE FROM  APIINFOS where  idClasse = ? AND idCours = ?";
+        try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
+            pstm.setInt(1,cl.getIdClasse());
+            pstm.setInt(2,co.getIdCours());
+            int n = pstm.executeUpdate();
+            if(n!=0) return true;
+            else return false;
+
+        } catch (SQLException e) {
+            System.err.println("erreur sql :" + e);
+            return false;
+        }
     }
 
     @Override

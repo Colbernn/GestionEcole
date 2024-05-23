@@ -1,7 +1,11 @@
 package mvc.vue;
 
 import metier.Classe;
+import metier.Cours;
+import metier.Enseignant;
+import metier.Salle;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -47,29 +51,87 @@ public class ClasseViewConsole extends ClasseAbstractView {
         affListe(l);
     }
 
-    /*private void special(Classe cl) {
+    private void special(Classe cl) {
 
         do {
-            int ch = choixListe(Arrays.asList("commandes en cours", "factures non payees", "factures en retard", "factures payees", "produits achetés", "menu principal"));
+            int ch = choixListe(Arrays.asList("Ajouter un cours", "modifier le nombre d'heures d'un cours", "modifier l'enseignant d'un cours", "modifier la salle d'un cours", "supprimer un cours", "menu principal"));
             if(ch==6) return;
             List l =   switch (ch) {
-                case 1 ->  classeController.commandes(cl);
-
-                case 2 ->  classeController.factNonPayees(cl);
-
-                case 3 ->   classeController.factRetard(cl);
-
-                case 4 ->   classeController.factPayees(cl);
-
-                case 5  ->   classeController.produits(cl);
-                default -> null;
-            };
-            if(l==null || l.isEmpty()) affMsg("aucun élément trouvée");
-            else affList(l);
+                case 1:
+                    ajouterCours(cl);
+                    break;
+                case 2:
+                    modifierCours1(cl);
+                    break;
+                case 3:
+                    modifierCours2(cl);
+                    break;
+                case 4:
+                    modifierCours3(cl);
+                    break;
+                case 5:
+                    supprimerCours(cl);
+                    break;
+                case 6:
+                    return;
+                default:
+                    System.out.println("choix invalide recommencez ");
+            }
         } while (true);
-    }*/
 
+    }
 
+    public void ajouterCours(Classe cl){
+        System.out.println("ajout d'une ligne");
+        Cours co = cov.selectionner();
+        System.out.print("nombre d'heures :");
+        int nh = sc.nextInt();
+        boolean ok = classeController.addCours(cl, co,nh);
+        if(ok) affMsg("cours ajouté");
+        else affMsg("erreur lors de l'ajout du produit");
+    }
+
+    private void modifierCours1(Classe cl) {
+        System.out.println("modification d'une ligne");
+        Cours co = cov.selectionner();
+        System.out.print("nombre d'heures :");
+        int nh = sc.nextInt();
+        boolean ok = classeController.modifCours1(cl,co,nh);
+        if(ok) affMsg("mise à jour effectuée");
+        else  affMsg("mise à jour infructueuse");
+    }
+
+    private void modifierCours2(Classe cl) {
+        System.out.println("modification d'une ligne");
+        Cours co = cov.selectionner();
+        System.out.print("Enseignant :");
+        ArrayList<Enseignant> len = new ArrayList<>();
+        len = getEnseignants();
+        Enseignant en =
+        boolean ok = classeController.modifCours1(cl,co,en);
+        if(ok) affMsg("mise à jour effectuée");
+        else  affMsg("mise à jour infructueuse");
+    }
+
+    private void modifierCours3(Classe cl) {
+        System.out.println("modification d'une ligne");
+        Cours co = cov.selectionner();
+        System.out.print("Salle :");
+        ArrayList<Salle> lsa = new ArrayList<>();
+        lsa = getSalles();
+        Salle sa =
+        boolean ok = classeController.modifCours1(cl,co,sa);
+        if(ok) affMsg("mise à jour effectuée");
+        else  affMsg("mise à jour infructueuse");
+    }
+
+    private void supprimerCours(Classe cl) {
+        System.out.println("suppression d'une ligne");
+        Cours co = cov.selectionner();
+        boolean ok = classeController.supCours(cl,co);
+        if(ok) affMsg("ligne de produit supprimée");
+        else affMsg("ligne de produit non supprimée");
+    }
 
     private void modifier() {
         int nl = choixElt(lc) - 1;
@@ -90,7 +152,7 @@ public class ClasseViewConsole extends ClasseAbstractView {
         if(cl==null) affMsg("recherche infructueuse");
         else {
             affMsg(cl.toString());
-            //special(cl);
+            special(cl);
         }
     }
 

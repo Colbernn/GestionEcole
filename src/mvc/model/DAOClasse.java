@@ -20,6 +20,13 @@ public abstract class DAOClasse extends mvc.observer.Subject {
 
     public abstract List<Cours> cours(Classe classe);
 
+    public abstract boolean addCours(Classe cl, Cours co, int nh);
+
+    public abstract boolean updateCours1(Classe cl, Cours co, int nh);
+    public abstract boolean updateCours2(Classe cl, Cours co, Enseignant en);
+    public abstract boolean updateCours3(Classe cl, Cours co, Salle sa);
+
+    public abstract boolean removeCours(Classe cl, Cours co);
 
 
 }
