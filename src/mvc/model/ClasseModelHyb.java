@@ -97,16 +97,20 @@ public class ClasseModelHyb extends DAOClasse {
         }
     }
     public Classe readClasse(int idClasse){
-        String query = "select * from APICLASSE where idClasse = ?";
+        String query = "select * from APICLASSESALLEV2 where idClasse = ?";
         try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1,idClasse);
             ResultSet rs = pstm.executeQuery();
             if(rs.next()){
-                String sigle = rs.getString(2);
+                String sigleC = rs.getString(2);
                 int annee  = rs.getInt(3);
                 String specialite = rs.getString(4);
                 int nbrEleve  = rs.getInt(5);
-                Classe cl = new Classe(idClasse,sigle,annee,specialite,nbrEleve);
+                int idSalle = rs.getInt(6);
+                String sigleS = rs.getString(7);
+                int capacite = rs.getInt(8);
+                Salle sa = new Salle(idSalle, sigleS,capacite);
+                Classe cl = new Classe(idClasse,sigleC,annee,specialite,nbrEleve, sa);
                 return  cl;
 
             }
@@ -124,16 +128,20 @@ public class ClasseModelHyb extends DAOClasse {
     @Override
     public List<Classe> getClasses() {
         List<Classe> lc = new ArrayList<>();
-        String query="select * from APICLASSE";
+        String query="select * from APICLASSESALLEV2";
         try(Statement stm = dbConnect.createStatement()) {
             ResultSet rs = stm.executeQuery(query);
             while(rs.next()){
                 int idClasse = rs.getInt(1);
                 String sigle = rs.getString(2);
-                int annee = rs.getInt(4);
-                String specialite = rs.getString(5);
-                int nbreEleves = rs.getInt(4);
-                Classe cl = new Classe(idClasse,sigle,annee,specialite,nbreEleves);
+                int annee = rs.getInt(3);
+                String specialite = rs.getString(4);
+                int nbreEleves = rs.getInt(5);
+                int idSalle = rs.getInt(6);
+                String sigleS = rs.getString(7);
+                int capacite = rs.getInt(8);
+                Salle sa = new Salle(idSalle, sigleS,capacite);
+                Classe cl = new Classe(idClasse,sigle,annee,specialite,nbreEleves, sa);
                 lc.add(cl);
             }
             return lc;

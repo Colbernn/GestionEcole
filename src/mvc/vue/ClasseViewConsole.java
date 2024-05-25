@@ -173,7 +173,10 @@ public class ClasseViewConsole extends ClasseAbstractView {
         String specialite = sc.nextLine();
         System.out.print("nombre d'élèves: ");
         int nbreEleve = Integer.parseInt(sc.nextLine());
-        Classe cl = classeController.addClasse(new Classe(0, sigle, annee, specialite, nbreEleve));
+        List<Salle> lsa;
+        lsa = sav.salleController.getAll();
+        int sa = choixElt(lsa);
+        Classe cl = classeController.addClasse(new Classe(0, sigle, annee, specialite, nbreEleve,lsa.get(sa-1)));
         if(cl!=null) affMsg("création de :"+cl);
         else affMsg("erreur de création");
     }
