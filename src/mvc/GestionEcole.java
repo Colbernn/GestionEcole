@@ -1,15 +1,11 @@
 package mvc;
 
+import mvc.controller.ClasseController;
+import mvc.controller.CoursController;
 import mvc.controller.EnseignantController;
 import mvc.controller.SalleController;
-import mvc.model.DAOEnseignant;
-import mvc.model.DAOSalle;
-import mvc.model.ModelEnseignantDB;
-import mvc.model.ModelSalleDB;
-import mvc.vue.EnseignantAbstractView;
-import mvc.vue.EnseignantViewConsole;
-import mvc.vue.SalleAbstractView;
-import mvc.vue.SalleViewConsole;
+import mvc.model.*;
+import mvc.vue.*;
 import utilitaires.Utilitaire;
 
 import java.util.Arrays;
@@ -22,6 +18,12 @@ public class GestionEcole {
     private DAOEnseignant em;
     private EnseignantController ec;
     private EnseignantAbstractView ev;
+    private DAOCours com;
+    private CoursController coc;
+    private CoursAbstractView cov;
+    private DAOClasse clm;
+    private ClasseController clc;
+    private ClasseAbstractView clv;
     public void gestion(){
         sm=new ModelSalleDB();
         sv =  new SalleViewConsole();
@@ -31,7 +33,15 @@ public class GestionEcole {
         ev =  new EnseignantViewConsole();
         ec= new EnseignantController(em,ev);
         em.addObserver(ev);
-        List<String> loptions = Arrays.asList("Salles","Enseignant","fin");
+        com=new ModelCoursDB();
+        cov =  new CoursViewConsole();
+        coc= new CoursController(com,cov);
+        com.addObserver(cov);
+        clm=new ClasseModelHyb();
+        clv =  new ClasseViewConsole();
+        clc= new ClasseController(clm,clv);
+        clm.addObserver(clv);
+        List<String> loptions = Arrays.asList("Salles","Enseignant","Cours","Classe","fin");
         do {
             int ch = Utilitaire.choixListe(loptions);
             switch (ch){
@@ -39,7 +49,11 @@ public class GestionEcole {
                     break;
                 case 2: ev.menu();
                     break;
-                case 3: System.exit(0);
+                case 3: cov.menu();
+                    break;
+                case 4: clv.menu();
+                    break;
+                case 5: System.exit(0);
             }
         }while(true);
     }
