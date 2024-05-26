@@ -79,4 +79,8 @@ public class Salle {
     public void setCapacite(int capacite) {
         this.capacite = capacite;
     }
+
+    public void setClasse(List<Classe> classe) {
+        this.classe = classe;
+    }
 }

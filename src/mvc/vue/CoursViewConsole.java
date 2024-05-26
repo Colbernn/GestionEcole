@@ -50,15 +50,17 @@ public class CoursViewConsole extends CoursAbstractView {
         Cours co = lc.get(nl-1);
         String code= modifyIfNotBlank("code du cours",co.getCode());
         String intitule = modifyIfNotBlank("intitulé du Cours",co.getIntitule());
-        Cours samaj =  coursController.update(new Cours(co.getIdCours(),code,intitule));
-        if(samaj==null) affMsg("mise à jour infrucueuse");
-        else affMsg("mise à jour effectuée : "+samaj);
+        Cours comaj =  coursController.update(new Cours(co.getIdCours(),code,intitule));
+        if(comaj==null) affMsg("mise à jour infrucueuse");
+        else affMsg("mise à jour effectuée : "+comaj);
     }
 
     private void rechercher() {
         System.out.println("idCours : ");
         int idCours = sc.nextInt();
-        coursController.search(idCours);
+        Cours co = coursController.search(idCours);
+        affMsg(co.toString());
+
     }
 
     private void retirer() {

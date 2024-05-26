@@ -65,7 +65,8 @@ public class EnseignantViewConsole extends EnseignantAbstractView {
     private void rechercher() {
         System.out.println("idEnseignant : ");
         int idEnseignant = sc.nextInt();
-        enseignantController.search(idEnseignant);
+        Enseignant en = enseignantController.search(idEnseignant);
+        affMsg(en.toString());
     }
 
     private void retirer() {
@@ -88,8 +89,10 @@ public class EnseignantViewConsole extends EnseignantAbstractView {
         String tel = sc.nextLine();
         System.out.print("charge de la semaine :");
         Integer chargeSem = sc.nextInt();
+        sc.nextLine();
         System.out.print("salaire mensuel :");
         BigDecimal salaire = sc.nextBigDecimal();
+        sc.nextLine();
         System.out.print("date d'engagement (format JJ MM YYYY) :");
         LocalDate dateEngag=lecDate();
         Enseignant es = enseignantController.addEnseignant(new Enseignant(0,mat,nom,prenom,tel,chargeSem,salaire,dateEngag)) ;

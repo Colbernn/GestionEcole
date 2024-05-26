@@ -78,6 +78,7 @@ public class ModelCoursDB extends DAOCours{
         try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setString(1,cours.getCode());
             pstm.setString(2,cours.getIntitule());
+            pstm.setInt(3,cours.getIdCours());
             int n = pstm.executeUpdate();
             notifyObservers();
             if(n!=0) return readCours(cours.getIdCours());

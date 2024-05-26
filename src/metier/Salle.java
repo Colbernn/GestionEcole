@@ -80,6 +80,10 @@ public class Salle {
         this.capacite = capacite;
     }
 
+    public void setClasse(List<Classe> classe) {
+        this.classe = classe;
+    }
+
     @Override
     public String toString() {
         return "Salle{" +

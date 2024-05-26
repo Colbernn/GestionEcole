@@ -29,18 +29,24 @@ public class GestionEcole {
         sv =  new SalleViewConsole();
         sc= new SalleController(sm,sv);
         sm.addObserver(sv);
+
         em=new ModelEnseignantDB();
         ev =  new EnseignantViewConsole();
         ec= new EnseignantController(em,ev);
         em.addObserver(ev);
+
         com=new ModelCoursDB();
         cov =  new CoursViewConsole();
         coc= new CoursController(com,cov);
         com.addObserver(cov);
+
         clm=new ClasseModelHyb();
         clv =  new ClasseViewConsole();
         clc= new ClasseController(clm,clv);
         clm.addObserver(clv);
+
+        clv.setSalleView(sv);
+        clv.setCoursView(cov);
         List<String> loptions = Arrays.asList("Salles","Enseignant","Cours","Classe","fin");
         do {
             int ch = Utilitaire.choixListe(loptions);

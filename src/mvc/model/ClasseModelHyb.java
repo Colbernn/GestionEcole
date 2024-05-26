@@ -106,11 +106,16 @@ public class ClasseModelHyb extends DAOClasse {
                 int annee  = rs.getInt(3);
                 String specialite = rs.getString(4);
                 int nbrEleve  = rs.getInt(5);
+                Classe cl = new Classe(idClasse,sigleC,annee,specialite,nbrEleve);
                 int idSalle = rs.getInt(6);
-                String sigleS = rs.getString(7);
-                int capacite = rs.getInt(8);
-                Salle sa = new Salle(idSalle, sigleS,capacite);
-                Classe cl = new Classe(idClasse,sigleC,annee,specialite,nbrEleve, sa);
+                if(idSalle!=0){
+                    idSalle = rs.getInt(6);
+                    String sigleS = rs.getString(7);
+                    int capacite = rs.getInt(8);
+                    Salle sa = new Salle(idSalle, sigleS,capacite);
+                    cl.setSalle(sa);
+                }
+
                 return  cl;
 
             }

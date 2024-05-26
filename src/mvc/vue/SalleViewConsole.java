@@ -61,7 +61,12 @@ public class SalleViewConsole extends SalleAbstractView {
     private void rechercher() {
         System.out.println("idSalle : ");
         int idSalle = sc.nextInt();
-        salleController.search(idSalle);
+        Salle sa = salleController.search(idSalle);
+        if(sa==null){
+            System.out.println("Pas de salle a cette id");
+        }else {
+            affMsg(sa.toString());
+        }
     }
 
     private void retirer() {

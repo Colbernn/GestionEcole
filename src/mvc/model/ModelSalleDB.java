@@ -1,5 +1,6 @@
 package mvc.model;
 
+import metier.Classe;
 import metier.Salle;
 import myconnections.DBConnection;
 
@@ -79,6 +80,7 @@ public class ModelSalleDB extends DAOSalle{
         try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setString(1,salle.getSigle());
             pstm.setInt(2,salle.getCapacite());
+            pstm.setInt(3,salle.getIdSalle());
             int n = pstm.executeUpdate();
             notifyObservers();
             if(n!=0) return readSalle(salle.getIdSalle());
@@ -93,18 +95,35 @@ public class ModelSalleDB extends DAOSalle{
 
     @Override
     public Salle readSalle(int idSalle) {
-        String query = "select * from APISALLE where idsalle = ?";
+        String query = "select * from APICLASSESALLE where idsalle = ?";
         try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1,idSalle);
             ResultSet rs = pstm.executeQuery();
+            System.out.println("Test");
             if(rs.next()){
-                String sigle = rs.getString(2);
+                System.out.println("Test2");
+                String sigleS = rs.getString(2);
                 int capacite = rs.getInt(3);
-                Salle sa = new Salle(idSalle,sigle,capacite);
+                Salle sa = new Salle(idSalle, sigleS,capacite);
+                List<Classe> lcl= new ArrayList<>();
+                int idClasse = rs.getInt(4);
+                if(idClasse!=0){
+                    do{
+                        idClasse = rs.getInt(4);
+                        String sigleC = rs.getString(5);
+                        int annee  = rs.getInt(6);
+                        String specialite = rs.getString(7);
+                        int nbrEleve  = rs.getInt(8);
+                        Classe cl = new Classe (idClasse, sigleC, annee, specialite, nbrEleve, sa);
+                        lcl.add(cl);
+                    }while(rs.next());
+                }
+                sa.setClasse(lcl);
                 return  sa;
 
             }
             else {
+                System.out.println("Test4");
                 return null;
             }
         } catch (SQLException e) {
