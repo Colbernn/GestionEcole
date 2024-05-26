@@ -109,7 +109,7 @@ public class ModelSalleDB extends DAOSalle{
                 int idClasse = rs.getInt(4);
                 if(idClasse!=0){
                     do{
-
+                        idClasse = rs.getInt(4);
                         String sigleC = rs.getString(5);
                         int annee  = rs.getInt(6);
                         String specialite = rs.getString(7);

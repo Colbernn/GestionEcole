@@ -93,4 +93,11 @@ public class Salle {
                 ", classe=" + classe +
                 '}';
     }
+
+    public void toString2() {
+        System.out.println("Salle{" + "idSalle=" + idSalle + ", sigle='" + sigle + '\'' + ", capacite=" + capacite + "    ");
+        for(Classe c : this.classe){
+
+        }
+    }
 }

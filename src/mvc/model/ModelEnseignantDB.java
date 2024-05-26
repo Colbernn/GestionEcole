@@ -117,8 +117,7 @@ public class ModelEnseignantDB extends DAOEnseignant{
                 String tel = rs.getString(5);
                 int chargeSem  = rs.getInt(6);
                 BigDecimal salaire = rs.getBigDecimal(7);
-                String dateEnga = rs.getString(8);
-                LocalDate dateEngag =lecDate();
+                LocalDate dateEngag = rs.getDate(8).toLocalDate();
                 Enseignant es = new Enseignant(idEnseignant,mat,nom,prenom,tel,chargeSem,salaire,dateEngag);
                 return  es;
 
@@ -147,8 +146,7 @@ public class ModelEnseignantDB extends DAOEnseignant{
                 String tel = rs.getString(5);
                 int chargeSem  = rs.getInt(6);
                 BigDecimal salaire = rs.getBigDecimal(7);
-                String dateEnga = rs.getString(8);
-                LocalDate dateEngag =lecDate();
+                LocalDate dateEngag = rs.getDate(8).toLocalDate();
                 Enseignant es = new Enseignant(idEnseignant,mat,nom,prenom,tel,chargeSem,salaire,dateEngag);
                 le.add(es);
             }

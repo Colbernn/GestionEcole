@@ -25,6 +25,10 @@ public abstract class ClasseAbstractView implements Observer {
         this.cov=cov;
     }
 
+    public void setEnseignantView(EnseignantAbstractView cov){
+        this.env=env;
+    }
+
     public abstract void affMsg(String msg);
 
     public abstract Classe selectionner();

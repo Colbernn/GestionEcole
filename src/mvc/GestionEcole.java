@@ -47,6 +47,7 @@ public class GestionEcole {
 
         clv.setSalleView(sv);
         clv.setCoursView(cov);
+        clv.setEnseignantView(ev);
         List<String> loptions = Arrays.asList("Salles","Enseignant","Cours","Classe","fin");
         do {
             int ch = Utilitaire.choixListe(loptions);

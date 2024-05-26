@@ -165,9 +165,11 @@ public class Classe {
                 ", specialite='" + specialite + '\'' +
                 ", nbreEleves=" + nbreEleves +
                 ", infos=" + infos +
-                ", salle=" + salle +
+                ", salle=" + salle.idSalle +
                 '}';
     }
+
+
 
     /**
      * calcul du nombre d'heure de cours total de la classe

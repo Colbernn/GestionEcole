@@ -116,6 +116,8 @@ public class ClasseModelHyb extends DAOClasse {
                     cl.setSalle(sa);
                 }
 
+                List<Infos> linf=readInfos(idClasse);
+                cl.setInfos(linf);
                 return  cl;
 
             }
@@ -127,6 +129,51 @@ public class ClasseModelHyb extends DAOClasse {
 
             return null;
         }
+
+    }
+
+    public List<Infos> readInfos(int idClasse){
+        String query = "select * from APIINFOSCOURS where idClasse_info = ?";
+        try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
+            pstm.setInt(1,idClasse);
+            ResultSet rs = pstm.executeQuery();
+            if(rs.next()){
+                List<Infos> linf = new ArrayList<>();
+                do {
+                    int idCours = rs.getInt(1);
+                    String code = rs.getString(2);
+                    String intitule = rs.getString(3);
+                    int idEnseignant = rs.getInt(4);
+                    String matricule = rs.getString(5);
+                    String nom = rs.getString(6);
+                    String prenom = rs.getString(7);
+                    String tel = rs.getString(8);
+                    int chargeSem = rs.getInt(9);
+                    BigDecimal salaire = rs.getBigDecimal(10);
+                    LocalDate dateEngag = rs.getDate(11).toLocalDate();
+                    int idSalle = rs.getInt(12);
+                    String sigle = rs.getString(13);
+                    int capacite = rs.getInt(14);
+                    int idInfos = rs.getInt(15);
+                    int nbrHeures = rs.getInt(16);
+                    Cours co = new Cours(idCours, code, intitule);
+                    Enseignant en = new Enseignant(idEnseignant, matricule, nom, prenom, tel, chargeSem, salaire, dateEngag);
+                    Salle sa = new Salle(idSalle, sigle, capacite);
+                    Infos inf = new Infos(idInfos, nbrHeures, en, sa, co);
+                    linf.add(inf);
+                }while(rs.next());
+                return  linf;
+
+            }
+            else {
+                return null;
+            }
+        } catch (SQLException e) {
+            System.err.println("erreur sql :"+e);
+
+            return null;
+        }
+
     }
 
 
@@ -200,7 +247,7 @@ public class ClasseModelHyb extends DAOClasse {
 
     @Override
     public boolean updateCours1(Classe cl, Cours co, int nh) {
-        String query = "update  APIINFOS set nbrHeures = ? where idClasse = ? AND idCours = ?";
+        String query = "update  APIINFOS set nbreHeures = ? where idClasse = ? AND idCours = ?";
         try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1,nh);
             pstm.setInt(2,cl.getIdClasse());
