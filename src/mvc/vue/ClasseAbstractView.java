@@ -25,7 +25,7 @@ public abstract class ClasseAbstractView implements Observer {
         this.cov=cov;
     }
 
-    public void setEnseignantView(EnseignantAbstractView cov){
+    public void setEnseignantView(EnseignantAbstractView env){
         this.env=env;
     }
 
