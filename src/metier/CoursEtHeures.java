@@ -16,4 +16,12 @@ public class CoursEtHeures {
         this.cours=cours;
         this.heure=heure;
     }
+
+    @Override
+    public String toString() {
+        return "CoursEtHeures{" +
+                "cours=" + cours +
+                ", heure=" + heure +
+                '}';
+    }
 }

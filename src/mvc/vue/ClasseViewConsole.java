@@ -1,9 +1,6 @@
 package mvc.vue;
 
-import metier.Classe;
-import metier.Cours;
-import metier.Enseignant;
-import metier.Salle;
+import metier.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,31 +51,64 @@ public class ClasseViewConsole extends ClasseAbstractView {
     private void special(Classe cl) {
 
         do {
-            int ch = choixListe(Arrays.asList("Ajouter un cours", "modifier le nombre d'heures d'un cours", "modifier l'enseignant d'un cours", "modifier la salle d'un cours", "supprimer un cours", "menu principal"));
-            if(ch==6) return;
+            int ch = choixListe(Arrays.asList("Nombres d'heures totales de la classe","Lister les enseignants et leurs heures","Lister les salles et leurs heures","Lister les cours et leurs heures","Ajouter un cours", "modifier le nombre d'heures d'un cours", "modifier l'enseignant d'un cours", "modifier la salle d'un cours", "supprimer un cours", "menu principal"));
+            if(ch==10) return;
               switch (ch) {
                 case 1:
-                    ajouterCours(cl);
+                    nombreHeuresTot(cl);
                     break;
                 case 2:
-                    modifierCours1(cl);
+                    listerEnseignantHeures(cl);
                     break;
                 case 3:
-                    modifierCours2(cl);
+                    listerSalleHeures(cl);
                     break;
                 case 4:
-                    modifierCours3(cl);
+                    listerCoursHeures(cl);
                     break;
                 case 5:
-                    supprimerCours(cl);
+                    ajouterCours(cl);
                     break;
-                case 6:
+                    case 6:
+                      modifierCours1(cl);
+                      break;
+                  case 7:
+                      modifierCours2(cl);
+                      break;
+                  case 8:
+                      modifierCours3(cl);
+                      break;
+                  case 9:
+                      supprimerCours(cl);
+                      break;
+                case 10:
                     return;
                 default:
                     System.out.println("choix invalide recommencez ");
             }
         } while (true);
 
+    }
+
+    public void nombreHeuresTot(Classe cl){
+        int tot;
+        tot = cl.nbreHeuresTot();
+        System.out.println("Le nombre d'heures totales prestées par cette classe est de " + tot);
+    }
+
+    public void listerEnseignantHeures (Classe cl){
+        List<EnseignantsEtHeures> leh=cl.listeEnseignantsEtHeures();
+        affList(leh);
+    }
+
+    public void listerCoursHeures (Classe cl){
+        List<CoursEtHeures> lch=cl.listeCoursEtHeures();
+        affList(lch);
+    }
+
+    public void listerSalleHeures (Classe cl){
+        List<SallesEtHeures> lsh=cl.listeSallesEtHeures();
+        affList(lsh);
     }
 
     public void ajouterCours(Classe cl){

@@ -144,21 +144,31 @@ public class ClasseModelHyb extends DAOClasse {
                     String code = rs.getString(2);
                     String intitule = rs.getString(3);
                     int idEnseignant = rs.getInt(4);
-                    String matricule = rs.getString(5);
-                    String nom = rs.getString(6);
-                    String prenom = rs.getString(7);
-                    String tel = rs.getString(8);
-                    int chargeSem = rs.getInt(9);
-                    BigDecimal salaire = rs.getBigDecimal(10);
-                    LocalDate dateEngag = rs.getDate(11).toLocalDate();
+                    Enseignant en;
+                    Salle sa;
+                    if(idEnseignant!=0) {
+                        String matricule = rs.getString(5);
+                        String nom = rs.getString(6);
+                        String prenom = rs.getString(7);
+                        String tel = rs.getString(8);
+                        int chargeSem = rs.getInt(9);
+                        BigDecimal salaire = rs.getBigDecimal(10);
+                        LocalDate dateEngag = rs.getDate(11).toLocalDate();
+                        en = new Enseignant(idEnseignant, matricule, nom, prenom, tel, chargeSem, salaire, dateEngag);
+                    }else{
+                        en = null;
+                    }
                     int idSalle = rs.getInt(12);
-                    String sigle = rs.getString(13);
-                    int capacite = rs.getInt(14);
+                    if(idSalle!=0) {
+                        String sigle = rs.getString(13);
+                        int capacite = rs.getInt(14);
+                        sa = new Salle(idSalle, sigle, capacite);
+                    }else{
+                        sa = null;
+                    }
                     int idInfos = rs.getInt(15);
                     int nbrHeures = rs.getInt(16);
                     Cours co = new Cours(idCours, code, intitule);
-                    Enseignant en = new Enseignant(idEnseignant, matricule, nom, prenom, tel, chargeSem, salaire, dateEngag);
-                    Salle sa = new Salle(idSalle, sigle, capacite);
                     Infos inf = new Infos(idInfos, nbrHeures, en, sa, co);
                     linf.add(inf);
                 }while(rs.next());
@@ -229,7 +239,7 @@ public class ClasseModelHyb extends DAOClasse {
 
     @Override
     public boolean addCours(Classe cl, Cours co, int nh) {
-        String query = "insert into  APIINFOS(idCours,idCours, nbrHeures) values(?,?,?)";
+        String query = "insert into  APIINFOS(idClasse,idCours, nbreHeures) values(?,?,?)";
         try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setInt(1,cl.getIdClasse());
             pstm.setInt(2,co.getIdCours());

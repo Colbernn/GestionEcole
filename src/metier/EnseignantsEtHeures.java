@@ -16,4 +16,12 @@ public class EnseignantsEtHeures {
         this.enseignant=ens;
         this.heure=heure;
     }
+
+    @Override
+    public String toString() {
+        return "EnseignantsEtHeures{" +
+                "enseignant=" + enseignant +
+                ", heure=" + heure +
+                '}';
+    }
 }

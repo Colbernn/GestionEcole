@@ -16,4 +16,12 @@ public class SallesEtHeures {
         this.salle=salle;
         this.heure=heure;
     }
+
+    @Override
+    public String toString() {
+        return "SallesEtHeures{" +
+                "salle=" + salle +
+                ", heure=" + heure +
+                '}';
+    }
 }
