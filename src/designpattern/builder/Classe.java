@@ -267,6 +267,20 @@ public class Classe {
         }
         return suppresion;
     }
+
+    @Override
+    public String toString() {
+        return "Classe{" +
+                "idClasse=" + idClasse +
+                ", sigle='" + sigle + '\'' +
+                ", annee=" + annee +
+                ", specialite='" + specialite + '\'' +
+                ", nbreEleves=" + nbreEleves +
+                ", infos=" + infos +
+                ", salle=" + salle +
+                '}';
+    }
+
     public static class ClasseBuilder{
 
         protected int idClasse;
