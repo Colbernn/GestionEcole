@@ -1,10 +1,12 @@
 package mvc.vue;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import metier.Classe;
 import metier.Salle;
 import mvc.controller.SalleController;
 import utilitaires.Utilitaire;
@@ -29,7 +31,7 @@ public class SalleViewConsole extends SalleAbstractView {
     public void menu(){
         update(salleController.getAll());
         do{
-            int ch = choixListe(Arrays.asList("ajout", "retrait", "rechercher", "modifier", "fin"));
+            int ch = choixListe(Arrays.asList("ajout", "retrait", "rechercher", "modifier", "capacité max de l'établissement", "fin"));
 
             switch(ch){
                 case 1: ajouter();
@@ -40,11 +42,42 @@ public class SalleViewConsole extends SalleAbstractView {
                     break;
                 case 4 : modifier();
                     break;
-                case 5 : return;
+                case 5 : capaciteMax();
+                    break;
+                case 6 : return;
             }
         }while(true);
     }
 
+    private void special(Salle sa) {
+
+        do {
+            int ch = choixListe(Arrays.asList("Voir les classes avec cette salle par défaut", "voir s'il y a plus une salle plus grande", "menu principal"));
+            if(ch==3) return;
+            switch (ch) {
+                case 1:
+                    classeSalleDefaut(sa);
+                    break;
+                case 2:
+                    voirSallePlusGrande(sa);
+                    break;
+                case 3:
+                    return;
+                default:
+                    System.out.println("choix invalide recommencez ");
+            }
+        } while (true);
+
+    }
+
+    private void capaciteMax(){
+        List<Salle> lsa = salleController.getAll();
+        int capaciteMax=0;
+        for(Salle s : lsa){
+            capaciteMax+=s.getCapacite();
+        }
+        System.out.println("la capacité totale de l'établissement est de : " + capaciteMax);
+    }
 
 
     private void modifier() {
@@ -66,6 +99,7 @@ public class SalleViewConsole extends SalleAbstractView {
             System.out.println("Pas de salle a cette id");
         }else {
             affMsg(sa.toString());
+            special(sa);
         }
     }
 
@@ -94,5 +128,34 @@ public class SalleViewConsole extends SalleAbstractView {
         int nl =  choixListe(ls);
         Salle sa = ls.get(nl-1);
         return sa;
+    }
+
+    private void classeSalleDefaut(Salle sa){
+        System.out.println("Voici les classes qui ont choisi cette salle par défaut :");
+        for(Classe cl : sa.getClasse()){
+            System.out.println(cl.toString());
+            System.out.println("\n");
+        }
+    }
+
+    private void voirSallePlusGrande(Salle sa){
+        List<Salle> lsa = salleController.getAll();
+        int flag=0;
+        List<Salle> lsag=new ArrayList<>();
+        for(Salle s : lsa){
+            if(s.getCapacite()>sa.getCapacite()){
+                flag = 1;
+                lsag.add(s);
+            }
+        }
+        if(flag==1){
+            System.out.println("Voici la liste des salles qui sont plus grande que celle sélectionner");
+            for(Salle s : lsag){
+                System.out.println(s.toString());
+                System.out.println("\n");
+            }
+        }else{
+            System.out.println("il s'agit actuellement de la salle la plus grande");
+        }
     }
 }

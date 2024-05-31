@@ -139,7 +139,7 @@ public class ClasseViewConsole extends ClasseAbstractView {
     }
 
     private void modifierCours1(Classe cl) {
-        System.out.println("modification d'une ligne");
+        System.out.println("modification d'un cours");
         Cours co = cov.selectionner();
         System.out.print("nombre d'heures :");
         int nh = sc.nextInt();
@@ -149,7 +149,7 @@ public class ClasseViewConsole extends ClasseAbstractView {
     }
 
     private void modifierCours2(Classe cl) {
-        System.out.println("modification d'une ligne");
+        System.out.println("modification d'un cours");
         Cours co = cov.selectionner();
         System.out.print("Enseignant :");
         List<Enseignant> len;
@@ -162,7 +162,7 @@ public class ClasseViewConsole extends ClasseAbstractView {
     }
 
     private void modifierCours3(Classe cl) {
-        System.out.println("modification d'une ligne");
+        System.out.println("modification d'un cours");
         Cours co = cov.selectionner();
         System.out.print("Salle :");
         List<Salle> lsa;

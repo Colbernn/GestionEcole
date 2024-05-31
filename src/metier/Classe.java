@@ -179,7 +179,7 @@ public class Classe {
     public int nbreHeuresTot(){
         int tot=0;
         for(Infos inf : infos) {
-            tot=+inf.getHeure();
+            tot+=inf.getHeure();
         }
         return tot;
     }
@@ -219,7 +219,7 @@ public class Classe {
             return cours;
     }
     /**
-     * vérification de la capacité d'une salle comparé aux nombre d'élèves de la classe
+     * vérification de la capacité d'une salle comparé aux nombres d'élèves de la classe
      * @param salle à ajouter
      * @return si capacité est supérieur ou égal au nombre d'éleve
      */
