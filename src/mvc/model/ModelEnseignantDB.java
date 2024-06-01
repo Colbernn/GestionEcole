@@ -92,6 +92,7 @@ public class ModelEnseignantDB extends DAOEnseignant{
             pstm.setInt(5,enseignant.getChargeSem());
             pstm.setBigDecimal(6,enseignant.getSalaireMensu());
             pstm.setDate(7,java.sql.Date.valueOf(enseignant.getDateEngag()));
+            pstm.setInt(8,enseignant.getIdEns());
             int n = pstm.executeUpdate();
             notifyObservers();
             if(n!=0) return readEnseignant(enseignant.getIdEns());

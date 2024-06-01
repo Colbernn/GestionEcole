@@ -78,13 +78,13 @@ public class ClasseModelHyb extends DAOClasse {
 
     @Override
     public Classe updateClasse(Classe classe) {
-        String query = "update APICLASSE set sigle =?,annee=?,specialite=?,nbreEleve=?";
+        String query = "update APICLASSE set sigle =?,annee=?,specialite=?,nbreEleves=? Where idClasse = ?";
         try(PreparedStatement pstm = dbConnect.prepareStatement(query)) {
             pstm.setString(1,classe.getSigle());
             pstm.setInt(2,classe.getAnnee());
             pstm.setString(3,classe.getSpecialite());
             pstm.setInt(4,classe.getNbreEleves());
-
+            pstm.setInt(5,classe.getIdClasse());
             int n = pstm.executeUpdate();
             notifyObservers();
             if(n!=0) return readClasse(classe.getIdClasse());

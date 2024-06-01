@@ -85,7 +85,7 @@ public class SalleViewConsole extends SalleAbstractView {
 
         Salle sa = ls.get(nl-1);
         String sigle= modifyIfNotBlank("sigle de salle",sa.getSigle());
-        int capacite = Integer.parseInt(modifyIfNotBlank("capacite",""+sa.getCapacite()));
+        int capacite = Integer.parseInt(modifyIfNotBlank("capacité",""+sa.getCapacite()));
         Salle samaj =  salleController.update(new Salle(sa.getIdSalle(),sigle,capacite));
         if(samaj==null) affMsg("mise à jour infrucueuse");
         else affMsg("mise à jour effectuée : "+samaj);

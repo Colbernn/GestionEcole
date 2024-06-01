@@ -121,9 +121,9 @@ public class ClasseViewConsole extends ClasseAbstractView {
         int sa = choixElt(lsa);
         boolean flag = cl.salleCapaciteOK(lsa.get(sa-1));
         if(flag){
-            System.out.println("La capacité de salle est correcte pour cette classe");
+            System.out.println("La capacité de la salle est correcte pour cette classe");
         }else{
-            System.out.println("La capacité de salle est trop faible");
+            System.out.println("La capacité de la salle est trop faible");
         }
 
     }
@@ -135,7 +135,7 @@ public class ClasseViewConsole extends ClasseAbstractView {
         int nh = sc.nextInt();
         boolean ok = classeController.addCours(cl, co,nh);
         if(ok) affMsg("cours ajouté");
-        else affMsg("erreur lors de l'ajout du produit");
+        else affMsg("erreur lors de l'ajout du cours");
     }
 
     private void modifierCours1(Classe cl) {
@@ -144,6 +144,7 @@ public class ClasseViewConsole extends ClasseAbstractView {
         System.out.print("nombre d'heures :");
         int nh = sc.nextInt();
         boolean ok = classeController.modifCours1(cl,co,nh);
+        cl.modifCours(co,nh);
         if(ok) affMsg("mise à jour effectuée");
         else  affMsg("mise à jour infructueuse");
     }
@@ -157,6 +158,7 @@ public class ClasseViewConsole extends ClasseAbstractView {
         affListe(len);
         int en = choixElt(len);
         boolean ok = classeController.modifCours2(cl,co,len.get(en-1));
+        cl.modifCours(co,len.get(en-1));
         if(ok) affMsg("mise à jour effectuée");
         else  affMsg("mise à jour infructueuse");
     }
@@ -170,6 +172,7 @@ public class ClasseViewConsole extends ClasseAbstractView {
         affListe(lsa);
         int sa = choixElt(lsa);
         boolean ok = classeController.modifCours3(cl,co,lsa.get(sa-1));
+        cl.modifCours(co,lsa.get(sa-1));
         if(ok) affMsg("mise à jour effectuée");
         else  affMsg("mise à jour infructueuse");
     }
@@ -178,7 +181,8 @@ public class ClasseViewConsole extends ClasseAbstractView {
         System.out.println("suppression d'une ligne");
         Cours co = cov.selectionner();
         boolean ok = classeController.supCours(cl,co);
-        if(ok) affMsg("ligne de produit supprimée");
+        boolean ok2 = cl.suppCours(co);
+        if(ok && ok2) affMsg("ligne de produit supprimée");
         else affMsg("ligne de produit non supprimée");
     }
 

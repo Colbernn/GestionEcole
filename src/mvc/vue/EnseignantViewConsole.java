@@ -56,9 +56,9 @@ public class EnseignantViewConsole extends EnseignantAbstractView {
         String tel= modifyIfNotBlank("telephone de Enseignant",es.getTel());
         int chargeSem = Integer.parseInt(modifyIfNotBlank("charge de la semaine",""+es.getChargeSem()));
         BigDecimal salaire = new BigDecimal(modifyIfNotBlank("salaire mensuel",""+es.getSalaireMensu()));
-        LocalDate dateEngag = LocalDate.parse(modifyIfNotBlank("date d'engagement",""+es.getDateEngag()));
+        LocalDate dateEngag = LocalDate.parse(modifyIfNotBlank("date d'engagement (format AAAA-MM-JJ)",""+es.getDateEngag()));
         Enseignant esmaj =  enseignantController.update(new Enseignant(es.getIdEns(),mat,nom,prenom, tel,chargeSem,salaire,dateEngag));
-        if(esmaj==null) affMsg("mise à jour infrucueuse");
+        if(esmaj==null) affMsg("mise à jour infructueuse");
         else affMsg("mise à jour effectuée : "+esmaj);
     }
 
